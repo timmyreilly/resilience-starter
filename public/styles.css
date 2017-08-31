@@ -1,0 +1,15 @@
+#myMap {
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+#inputForm {
+    position: absolute;
+    top: 200px;
+    left: 250px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
