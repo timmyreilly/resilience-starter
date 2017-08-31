@@ -12,6 +12,14 @@ console.log('Bing Credentials: ' + bingCredentials);
 
 app.use(express.static(path.join(__dirname, "public")));
 
+var poi = {
+    lat: 0, 
+    lon: 0, 
+    title: '',
+    desc: '', 
+    asset: ''
+}; 
+
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/" + "index.html");
 });
@@ -30,11 +38,14 @@ app.get("/entry", function (request, response) {
 });
 
 app.get("/azure", function (request, response){
-    var val = request.query; 
-    var lat = request.query.loc['x']; 
-    var lon = request.query.loc['y']; 
-    console.log("x: " + x); 
-    console.log(val); 
+    poi.lat = request.query.loc['x'];
+    poi.lon = request.query.loc['y']; 
+    poi.title = request.query.meta['title']; 
+    var rest = JSON.parse(request.query.meta['description']); 
+    poi.desc = rest['description'];
+    poi.asset = rest['asset']; 
+    
+    console.log(poi); 
 })
 
 app.get("/secrets", function (request, response) {
