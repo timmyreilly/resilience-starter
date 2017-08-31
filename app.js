@@ -7,8 +7,17 @@ const fs = require("fs");
 const app = express();
 const server = require("http").createServer(app);
 
+const azure = require('azure-storage'); 
+const uuid = require('node-uuid');
+
 var bingCredentials = process.env.BingMapsKey
 console.log('Bing Credentials: ' + bingCredentials);
+
+var tableName = process.env.TABLE_NAME;
+var partitionKey = process.env.PARTITION_KEY;
+var accountName = process.env.STORAGE_NAME;
+var accountKey = process.env.STORAGE_KEY;
+
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -38,8 +47,8 @@ app.get("/entry", function (request, response) {
 });
 
 app.get("/azure", function (request, response){
-    poi.lat = request.query.loc['x'];
-    poi.lon = request.query.loc['y']; 
+    poi.lat = request.query.loc['y'];
+    poi.lon = request.query.loc['x']; 
     poi.title = request.query.meta['title']; 
     var rest = JSON.parse(request.query.meta['description']); 
     poi.desc = rest['description'];

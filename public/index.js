@@ -2,7 +2,9 @@ var map, infobox, currentPushpin;
 
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap', {
-        credentials: BingMapsKey
+        credentials: BingMapsKey,
+        center: new Microsoft.Maps.Location(37.78, -122.44),
+        zoom: 10        
     });
 
     //Add a click event to the map.
