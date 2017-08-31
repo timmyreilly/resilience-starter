@@ -29,6 +29,14 @@ app.get("/entry", function (request, response) {
     console.log(val);
 });
 
+app.get("/azure", function (request, response){
+    var val = request.query; 
+    var lat = request.query.loc['x']; 
+    var lon = request.query.loc['y']; 
+    console.log("x: " + x); 
+    console.log(val); 
+})
+
 app.get("/secrets", function (request, response) {
     console.log("Going to send: " + bingCredentials);
     response.send(bingCredentials);
@@ -36,3 +44,5 @@ app.get("/secrets", function (request, response) {
 
 console.log(`Starting server on ${process.env.PORT}`);
 server.listen(process.env.PORT || 8080);
+
+// var x = JSON.parse(request.query.meta['description']) 

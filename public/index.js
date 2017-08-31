@@ -35,23 +35,32 @@ function submitToDB(title) {
     });
 }
 
+function submitToAzure(metadata, location){
+    var parameters = { meta : metadata, loc : location }; 
+    $.get('/azure', parameters, function (data){
+        alert(data);}, 'json'
+    )
+}
+
 function saveData() {
     //Get the data from form and add it to the pushpin
     currentPushpin.metadata = {
         title: document.getElementById('titleTbx').value,
-        description: document.getElementById('descriptionTbx').value, 
-        resource: document.getElementById('resource').value 
+        description: '{ "description" : "' + document.getElementById('descriptionTbx').value + '", "asset" :"' + document.getElementById('assetSelect').value + '"}'   
+        // description: document.getElementById('descriptionTbx').value + " Asset: " + document.getElementById('assetSelect').value
     };
+    
 
     console.log("currentPushpingmetatdata: " + currentPushpin.metadata.title);
 
     //Optionally save this data somewhere (like a database or local storage).
     submitToDB(currentPushpin.metadata);
-
+    submitToAzure(currentPushpin.metadata, currentPushpin.geometry); 
 
     //Clear the fields in the form and then hide the form.
     document.getElementById('titleTbx').value = '';
     document.getElementById('descriptionTbx').value = '';
+    document.getElementById('assetSelect').value = ''; 
     document.getElementById('inputForm').style.display = 'none';
 }
 
@@ -61,6 +70,7 @@ function pushpinClicked(e) {
             location: e.target.getLocation(),
             title: e.target.metadata.title,
             description: e.target.metadata.description,
+            asset: e.target.metadata.asset,  
             visible: true
         });
     }
