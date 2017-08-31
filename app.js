@@ -13,14 +13,16 @@ console.log('Bing Credentials: ' + bingCredentials);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    // Todo - call transaction update history from blockchain
     res.sendFile(__dirname + "/" + "index.html");
 });
 
 app.get("/basic", (req, res) => {
-    // Todo - call transaction update history from blockchain
     res.sendFile(__dirname + "/" + "basic.html");
 });
+
+app.get("/origin", (req, res) => {
+    res.sendFile(__dirname +  "/" + "create-push-pin.html"); 
+})
 
 app.get("/entry", function (request, response) {
     var val = request.query.entry;

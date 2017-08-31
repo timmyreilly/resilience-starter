@@ -2,7 +2,6 @@ var map, infobox, currentPushpin;
 
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap', {
-        // credentials: "Ap9opDJtO8wtNnk1wNFdz2blihxwv8mPZdB5vEJR7epV3tluq67AFF75nFgVGzMH",
         credentials: BingMapsKey
     });
 
