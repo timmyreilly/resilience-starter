@@ -1,9 +1,21 @@
 var map;
 
-function loadMapScenario() { 
-    map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
-        credentials : "Ap9opDJtO8wtNnk1wNFdz2blihxwv8mPZdB5vEJR7epV3tluq67AFF75nFgVGzMH" 
+function GetMap() {
+    map = new Microsoft.Maps.Map('#myMap', {
+        credentials: BingMapsKey,
+        center: new Microsoft.Maps.Location(37.78, -122.44),
+        zoom: 10        
     });
+
+    //Create an infobox, but hide it. We can reuse it for each pushpin.
+    infobox = new Microsoft.Maps.Infobox(map.getCenter(), { visible: false });
+    infobox.setMap(map);
+
+    var parameters = {"bob": "ross"}; 
+
+    $.get('/pushpins', parameters, function(data){
+        console.log(data); 
+    })
 
 
 }

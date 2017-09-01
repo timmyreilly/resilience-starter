@@ -71,6 +71,11 @@ app.get("/secrets", function (request, response) {
     response.send(bingCredentials);
 })
 
+app.get("/pushpins", function (request, response){
+    console.log("What do you want??");
+    response.send({"here": "you", "go": "you turd"}); 
+})
+
 console.log(`Starting server on ${process.env.PORT}`);
 server.listen(process.env.PORT || 8080);
 
