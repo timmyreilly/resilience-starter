@@ -102,11 +102,6 @@ server.listen(process.env.PORT || 8080);
 
 // var x = JSON.parse(request.query.meta['description']) 
 
-
-function queryAzure(number, asset, callback) {
-    callback("here")
-}
-
 function sendToAzure(poi) {
     var entGen = azure.TableUtilities.entityGenerator;
 
