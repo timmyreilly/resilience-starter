@@ -13,7 +13,11 @@ function GetMap() {
 
     var parameters = {"bob": "ross"}; 
 
-    $.get('/pushpins', parameters, function(data){
+    $.get('/p', parameters, function(data){
+        console.log(data); 
+    })
+
+    $.get('/pushpins', {number : 5}, function(data){
         console.log(data); 
     })
 

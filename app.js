@@ -18,6 +18,11 @@ var partitionKey = process.env.PARTITION_KEY;
 var accountName = process.env.STORAGE_NAME;
 var accountKey = process.env.STORAGE_KEY;
 
+//var AssetList = require('./assetList'); 
+//var Asset = require('./asset'); 
+
+// var asset = new Asset(azure.createTableService, 'BingMeta', 'resiliency'); 
+// var assetList = new AssetList(asset); 
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -36,6 +41,11 @@ tableService.createTableIfNotExists('BingMeta', function (error, result, respons
         // result contains true if created; false if already exists
     }
 });
+
+// app.get("/t", assetList.showAssets.bing(assetList));
+//app.post('/addasset', assetList.addAsset.bing(assetList)); 
+//app.post('/removeasset', assetList.removeAsset.bind(assetList)); 
+
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/" + "index.html");
@@ -66,40 +76,55 @@ app.get("/azure", function (request, response) {
     console.log(poi);
 })
 
-app.get("/secrets", function (request, response) {
-    console.log("Going to send: " + bingCredentials);
-    response.send(bingCredentials);
+app.get("/p", function (request, response) {
+    console.log("you want P?");
+    response.send({ "so": "f-ing", "cleve": "now" });
 })
 
-app.get("/pushpins", function (request, response){
-    console.log("What do you want??");
-    response.send({"here": "you", "go": "you turd"}); 
+
+app.get("/pushpins", function (req, res) {
+    var query = new azure.TableQuery().top(5).where('PartitionKey eq ?', 'water');
+
+    tableService.queryEntities('BingMeta', query, null, function (error, result, response) {
+        if (!error) {
+            console.log(result.entries);
+            res.json(result.entries); 
+        }
+    })
 })
+
+
+
 
 console.log(`Starting server on ${process.env.PORT}`);
 server.listen(process.env.PORT || 8080);
 
 // var x = JSON.parse(request.query.meta['description']) 
 
+
+function queryAzure(number, asset, callback) {
+    callback("here")
+}
+
 function sendToAzure(poi) {
     var entGen = azure.TableUtilities.entityGenerator;
-    
+
     var entity = {
         PartitionKey: entGen.String(poi.asset),
         RowKey: entGen.String(uuid()),
-        title: entGen.String(poi.title), 
+        title: entGen.String(poi.title),
         description: entGen.String(poi.desc),
         lat: entGen.String(poi.lat),
         lon: entGen.String(poi.lon),
         asset: entGen.String(poi.asset)
-    }; 
+    };
 
-    tableService.insertEntity('BingMeta', entity, function (error, result, response){
-        if(!error){
-            console.log(result); 
+    tableService.insertEntity('BingMeta', entity, function (error, result, response) {
+        if (!error) {
+            console.log(result);
         }
         else {
-            console.log(error); 
+            console.log(error);
         }
-    }); 
+    });
 }; 
