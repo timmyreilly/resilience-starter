@@ -80,17 +80,14 @@ function sendToAzure(poi) {
     var entGen = azure.TableUtilities.entityGenerator;
     
     var entity = {
-        PartitionKey: entGen.String('part2'),
-        RowKey: entGen.String('row1'),
+        PartitionKey: entGen.String(poi.asset),
+        RowKey: entGen.String(uuid()),
         title: entGen.String(poi.title), 
         description: entGen.String(poi.desc),
         lat: entGen.String(poi.lat),
         lon: entGen.String(poi.lon),
         asset: entGen.String(poi.asset)
     }; 
-
-
-
 
     tableService.insertEntity('BingMeta', entity, function (error, result, response){
         if(!error){
