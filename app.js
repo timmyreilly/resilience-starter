@@ -83,7 +83,8 @@ app.get("/p", function (request, response) {
 
 
 app.get("/pushpins", function (req, res) {
-    var query = new azure.TableQuery().top(5).where('PartitionKey eq ?', 'water');
+    console.log(req.query.number); 
+    var query = new azure.TableQuery().top(req.query.number).where('PartitionKey eq ?', req.query.partitionKey);
 
     tableService.queryEntities('BingMeta', query, null, function (error, result, response) {
         if (!error) {

@@ -17,7 +17,7 @@ function GetMap() {
         console.log(data); 
     })
 
-    $.get('/pushpins', {number : 5}, function(data){
+    $.get('/pushpins', {number : 5, partitionKey: 'water'}, function(data){
         console.log(data); 
     })
 
