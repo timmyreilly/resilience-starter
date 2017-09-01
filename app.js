@@ -7,7 +7,7 @@ const fs = require("fs");
 const app = express();
 const server = require("http").createServer(app);
 
-const azure = require('azure-storage'); 
+const azure = require('azure-storage');
 const uuid = require('node-uuid');
 
 var bingCredentials = process.env.BingMapsKey
@@ -22,12 +22,20 @@ var accountKey = process.env.STORAGE_KEY;
 app.use(express.static(path.join(__dirname, "public")));
 
 var poi = {
-    lat: 0, 
-    lon: 0, 
+    lat: 0,
+    lon: 0,
     title: '',
-    desc: '', 
+    desc: '',
     asset: ''
-}; 
+};
+
+var tableService = azure.createTableService(process.env.STORAGE_CONNECTION_STRING);
+tableService.createTableIfNotExists('BingMeta', function (error, result, response) {
+    if (!error) {
+        console.log(result);
+        // result contains true if created; false if already exists
+    }
+});
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/" + "index.html");
@@ -38,7 +46,7 @@ app.get("/basic", (req, res) => {
 });
 
 app.get("/origin", (req, res) => {
-    res.sendFile(__dirname +  "/" + "create-push-pin.html"); 
+    res.sendFile(__dirname + "/" + "create-push-pin.html");
 })
 
 app.get("/entry", function (request, response) {
@@ -46,15 +54,16 @@ app.get("/entry", function (request, response) {
     console.log(val);
 });
 
-app.get("/azure", function (request, response){
+app.get("/azure", function (request, response) {
     poi.lat = request.query.loc['y'];
-    poi.lon = request.query.loc['x']; 
-    poi.title = request.query.meta['title']; 
-    var rest = JSON.parse(request.query.meta['description']); 
+    poi.lon = request.query.loc['x'];
+    poi.title = request.query.meta['title'];
+    var rest = JSON.parse(request.query.meta['description']);
     poi.desc = rest['description'];
-    poi.asset = rest['asset']; 
-    
-    console.log(poi); 
+    poi.asset = rest['asset'];
+
+    sendToAzure(poi);
+    console.log(poi);
 })
 
 app.get("/secrets", function (request, response) {
@@ -66,3 +75,29 @@ console.log(`Starting server on ${process.env.PORT}`);
 server.listen(process.env.PORT || 8080);
 
 // var x = JSON.parse(request.query.meta['description']) 
+
+function sendToAzure(poi) {
+    var entGen = azure.TableUtilities.entityGenerator;
+    
+    var entity = {
+        PartitionKey: entGen.String('part2'),
+        RowKey: entGen.String('row1'),
+        title: entGen.String(poi.title), 
+        description: entGen.String(poi.desc),
+        lat: entGen.String(poi.lat),
+        lon: entGen.String(poi.lon),
+        asset: entGen.String(poi.asset)
+    }; 
+
+
+
+
+    tableService.insertEntity('BingMeta', entity, function (error, result, response){
+        if(!error){
+            console.log(result); 
+        }
+        else {
+            console.log(error); 
+        }
+    }); 
+}; 
