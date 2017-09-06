@@ -21,3 +21,13 @@ Also the BingMapsCredentials.js file (*place inside of public*):
 var BingMapsKey = 'asdfasdfasdftNnk1wNFdz2blihxwv8mPZdB5vEJR7epV3tluq67AFF75nFgVGzMH';
 
 ```
+
+### Asset List: 
+Supplies
+Staff
+Food
+Water
+Energy/Fuel
+Medical
+Open Space
+Shelter

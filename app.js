@@ -31,6 +31,7 @@ var poi = {
     lon: 0,
     title: '',
     desc: '',
+    author: '', 
     asset: ''
 };
 
@@ -70,17 +71,12 @@ app.get("/azure", function (request, response) {
     poi.title = request.query.meta['title'];
     var rest = JSON.parse(request.query.meta['description']);
     poi.desc = rest['description'];
+    poi.author = rest['author']; 
     poi.asset = rest['asset'];
 
     sendToAzure(poi);
     console.log(poi);
 })
-
-app.get("/p", function (request, response) {
-    console.log("you want P?");
-    response.send({ "so": "f-ing", "cleve": "now" });
-})
-
 
 app.get("/pushpins", function(req, res){
     var query = new azure.TableQuery().top(req.query.number); 
@@ -110,6 +106,7 @@ function sendToAzure(poi) {
         RowKey: entGen.String(uuid()),
         title: entGen.String(poi.title),
         description: entGen.String(poi.desc),
+        author: entGen.String(poi.author), 
         lat: entGen.String(poi.lat),
         lon: entGen.String(poi.lon),
         asset: entGen.String(poi.asset)

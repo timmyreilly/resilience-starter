@@ -3,8 +3,9 @@ var map, infobox, currentPushpin;
 function GetMap() {
     map = new Microsoft.Maps.Map('#myMap', {
         credentials: BingMapsKey,
+        // mapTypeId: Microsoft.Maps.MapTypeId.aerial, // This is running really slow... 
         center: new Microsoft.Maps.Location(37.78, -122.44),
-        zoom: 10        
+        zoom: 14      
     });
 
     //Add a click event to the map.
@@ -14,8 +15,9 @@ function GetMap() {
     infobox = new Microsoft.Maps.Infobox(map.getCenter(), { visible: false });
     infobox.setMap(map);
 
-    $.get('/pushpins', {number : 5, partitionKey: 'water'}, function(data){
-        for(var i = 0; i < data.length; i++){
+    $.get('/pushpins', {number : 100, partitionKey: 'water'}, function(data){
+        // now we have the data let's push some pins. 
+        for (var i = 0; i < data.length; i++){
             console.log(data[i]); 
             var lat = parseFloat(data[i].lat._);  
             var lon = parseFloat(data[i].lon._); 
@@ -24,7 +26,7 @@ function GetMap() {
 
             pin.metadata = {
                 title : data[i].title._, 
-                description : "Asset: " + data[i].asset._ + " Description: " +data[i].description._  
+                description : "Asset: " + data[i].asset._ + " Description: " + data[i].description._ + " Author: " + data[i].author._     
             }
 
             // Add a click event handler to the pushpin. 
@@ -33,7 +35,8 @@ function GetMap() {
             map.entities.push(pin); 
         }
 
-        console.log(data);  
+
+        console.log(data); 
     })
 }
 
@@ -69,15 +72,21 @@ function saveData() {
     //Get the data from form and add it to the pushpin
     currentPushpin.metadata = {
         title: document.getElementById('titleTbx').value,
-        description: '{ "description" : "' + document.getElementById('descriptionTbx').value + '", "asset" :"' + document.getElementById('assetSelect').value + '"}'   
-        // description: document.getElementById('descriptionTbx').value + " Asset: " + document.getElementById('assetSelect').value
+        description: '{ "description" : "' + document.getElementById('descriptionTbx').value + '", "author" : "' + document.getElementById('authorTbx').value + '", "asset" :"' + document.getElementById('assetSelect').value + '"}'   
     };
-    
+    // Update with Author asset 
+    /*
+    {
+        "description": "document.getElementById{'descritpionTbx').value",
+        "author": "document.getElementById('authorTbx').value",
+        "asset" : "docuemnt.getElementById('assetSelect').value"
+    }
+
+    */
 
     console.log("currentPushpingmetatdata: " + currentPushpin.metadata.title);
 
     //Optionally save this data somewhere (like a database or local storage).
-    submitToDB(currentPushpin.metadata);
     submitToAzure(currentPushpin.metadata, currentPushpin.geometry); 
 
     //Clear the fields in the form and then hide the form.
