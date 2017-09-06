@@ -7,7 +7,6 @@ function GetMap() {
         center: new Microsoft.Maps.Location(37.78, -122.44),
         zoom: 14      
     });
-
     //Add a click event to the map.
     Microsoft.Maps.Events.addHandler(map, 'click', mapClicked);
 
@@ -34,8 +33,6 @@ function GetMap() {
             
             map.entities.push(pin); 
         }
-
-
         console.log(data); 
     })
 }
@@ -52,13 +49,6 @@ function mapClicked(e) {
 
     //Open up an input form here the user can enter in details for pushpin. 
     document.getElementById('inputForm').style.display = '';
-}
-
-function submitToDB(title) {
-    var parameters = { entry: title };
-    $.get('/entry', parameters, function (data) {
-        $('#output').html(data);
-    });
 }
 
 function submitToAzure(metadata, location){

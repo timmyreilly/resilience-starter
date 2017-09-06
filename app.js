@@ -43,22 +43,9 @@ tableService.createTableIfNotExists('BingMeta', function (error, result, respons
     }
 });
 
-// app.get("/t", assetList.showAssets.bing(assetList));
-//app.post('/addasset', assetList.addAsset.bing(assetList)); 
-//app.post('/removeasset', assetList.removeAsset.bind(assetList)); 
-
-
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/" + "index.html");
 });
-
-app.get("/basic", (req, res) => {
-    res.sendFile(__dirname + "/" + "basic.html");
-});
-
-app.get("/origin", (req, res) => {
-    res.sendFile(__dirname + "/" + "create-push-pin.html");
-})
 
 app.get("/entry", function (request, response) {
     var val = request.query.entry;
