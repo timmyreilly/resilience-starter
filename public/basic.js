@@ -19,7 +19,7 @@ function GetMap() {
 
     var randomLocations = Microsoft.Maps.TestDataGenerator.getLocations(5, map.getBounds()); 
 
-    $.get('/pushpins', {number : 5, partitionKey: 'water'}, function(data){
+    $.get('/pushpins', {number : 100, partitionKey: 'water'}, function(data){
         // now we have the data let's push some pins. 
         for (var i = 0; i < data.length; i++){
             console.log(data[i]); 

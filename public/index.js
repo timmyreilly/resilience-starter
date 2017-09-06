@@ -23,8 +23,8 @@ function GetMap() {
             var pin = new Microsoft.Maps.Pushpin(loc); 
 
             pin.metadata = {
-                title : data[i].title._ + " Asset: " + data[i].asset._, 
-                description : data[i].description._  
+                title : data[i].title._, 
+                description : "Asset: " + data[i].asset._ + " Description: " +data[i].description._  
             }
 
             // Add a click event handler to the pushpin. 

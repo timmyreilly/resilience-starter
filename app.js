@@ -82,9 +82,8 @@ app.get("/p", function (request, response) {
 })
 
 
-app.get("/pushpins", function (req, res) {
-    console.log(req.query.number); 
-    var query = new azure.TableQuery().top(req.query.number).where('PartitionKey eq ?', req.query.partitionKey);
+app.get("/pushpins", function(req, res){
+    var query = new azure.TableQuery().top(req.query.number); 
 
     tableService.queryEntities('BingMeta', query, null, function (error, result, response) {
         if (!error) {
@@ -92,8 +91,9 @@ app.get("/pushpins", function (req, res) {
             res.json(result.entries); 
         }
     })
-})
 
+
+})
 
 
 
