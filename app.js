@@ -56,11 +56,31 @@ app.get("/entry", function (request, response) {
 app.get("/resource", function(req, res){
     var query = new azure.TableQuery(); 
 
+
+
     tableService.queryEntities('BingMeta', query, null, function (error, result, response){
         if(!error){
             res.json(result.entries); 
         }
     })
+});
+
+app.get("/raw", function(req, res){
+    res.json({
+        "action":"establish",
+        "category":"parking",
+        "date":"2011-04-19T00:00:00.000",
+        "description":"wazzzup",
+        "location":{
+            "type":"Point",
+            "coordinates":[
+                -122.450875079707,
+                37.762676
+
+            ]
+        }
+        
+    }); 
 })
 
 app.get("/azure", function (request, response) {

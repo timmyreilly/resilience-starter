@@ -1,0 +1,73 @@
+[
+    {
+        "action": "3rd street",
+        "category": "south",
+        "cross_street": "EVERYDAY",
+        "description": "166",
+        "from_address": "8:00 AM",
+        "minutes_item": "171",
+        "order_number": "http://sanfrancisco.granicus.com/MediaPlayer.php?view_id=55&clip_id=26482",
+        "project_id": "http://media-06.granicus.com:443/ondemand/sanfrancisco/sanfrancisco_a7887f13-8a7f-4f5b-b525-f5d7292cbcdc.mp3",
+        "resolution_letter": "181",
+        "resolution_numbers": "South Park",
+        "side": "U",
+        "street_name": "2",
+        "to_address": "10:00 PM",
+        "type": "151",
+        "week_5": "11-1-16-minutes.pdf"
+    },
+    {
+        ":@computed_region_ajp5_b2md": "3",
+        ":@computed_region_bh8s_q3mv": "29492",
+        ":@computed_region_f58d_8dbm": "9",
+        ":@computed_region_jx4q_fizf": "8",
+        ":@computed_region_rxqg_mtj9": "11",
+        ":@computed_region_yftq_j783": "15",
+        "action": "establish",
+        "category": "parking",
+        "date": "2011-04-19T00:00:00.000",
+        "day": "monday through friday",
+        "description": "RESIDENTIAL PERMIT PARKING AREA J, 2-HOUR LIMIT, 8 AM TO 5 PM, MONDAY THROUGH FRIDAY - Shrader Street, both sides, between Alma and Rivoli streets.",
+        "end_time": "5:00 PM",
+        "from_address": "1300",
+        "geocoder_confidence": "100",
+        "hour": "2",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                -122.450875079707,
+                37.7626764951
+            ]
+        },
+        "minutes_item": "10.2",
+        "mp3": "http://media-06.granicus.com:443/ondemand/sanfrancisco/sanfrancisco_18edfa56-0541-4657-9d1f-178346297c7e.mp3",
+        "neighborhoods_realtor_boundaries": "Cole Valley/Parnassus Heights",
+        "neighborhoods_sffind_boundaries": "Ashbury Heights",
+        "neighborhooods_analysis_boundaries": "Haight Ashbury",
+        "pdf": "4-19-11-minutes.pdf",
+        "permits": "J",
+        "resolution_letter": "F",
+        "resolution_numbers": "11-048",
+        "start_time": "8:00 AM",
+        "street_name": "Shrader Street",
+        "supervisor_district": "5",
+        "to_address": "1398",
+        "type": "residential permit parking",
+        "video": "http://sanfrancisco.granicus.com/MediaPlayer.php?view_id=55&clip_id=12004"
+    },
+    {
+        "action":"establish",
+        "category":"parking",
+        "date":"2011-04-19T00:00:00.000",
+        "description":"wazzzup",
+        "location":{
+            "type":"Point",
+            "coordinates":[
+                -122.450875079707,
+                37.762676
+
+            ]
+        }
+        
+    }
+]
