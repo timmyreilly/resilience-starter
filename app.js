@@ -52,6 +52,17 @@ app.get("/entry", function (request, response) {
     console.log(val);
 });
 
+// INCIDENTS_API_JSON_URL: 'https://data.sfgov.org/resource/amb9-e5y3.json',
+app.get("/resource", function(req, res){
+    var query = new azure.TableQuery(); 
+
+    tableService.queryEntities('BingMeta', query, null, function (error, result, response){
+        if(!error){
+            res.json(result.entries); 
+        }
+    })
+})
+
 app.get("/azure", function (request, response) {
     poi.lat = request.query.loc['y'];
     poi.lon = request.query.loc['x'];

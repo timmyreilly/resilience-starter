@@ -73,7 +73,6 @@ function saveData() {
     }
 
     */
-
     console.log("currentPushpingmetatdata: " + currentPushpin.metadata.title);
 
     //Optionally save this data somewhere (like a database or local storage).
