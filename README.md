@@ -31,3 +31,9 @@ Energy/Fuel
 Medical
 Open Space
 Shelter
+
+### TO-DOs:
+- Add asset selection tab
+- Customize asset icons
+- Figure out how to Make Aerial Mode less slow
+- 

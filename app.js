@@ -84,6 +84,8 @@ app.get("/raw", function(req, res){
 })
 
 app.get("/azure", function (request, response) {
+
+    
     poi.lat = request.query.loc['y'];
     poi.lon = request.query.loc['x'];
     poi.title = request.query.meta['title'];
