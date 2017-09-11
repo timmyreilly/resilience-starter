@@ -56,8 +56,6 @@ app.get("/entry", function (request, response) {
 app.get("/resource", function(req, res){
     var query = new azure.TableQuery(); 
 
-
-
     tableService.queryEntities('BingMeta', query, null, function (error, result, response){
         if(!error){
             res.json(result.entries); 
@@ -85,7 +83,7 @@ app.get("/raw", function(req, res){
 
 app.get("/azure", function (request, response) {
 
-    
+
     poi.lat = request.query.loc['y'];
     poi.lon = request.query.loc['x'];
     poi.title = request.query.meta['title'];
