@@ -10,6 +10,8 @@ const server = require("http").createServer(app);
 const azure = require('azure-storage');
 const uuid = require('node-uuid');
 
+var GeoJSON = require('geojson');
+
 var bingCredentials = process.env.BingMapsKey
 console.log('Bing Credentials: ' + bingCredentials);
 
@@ -79,10 +81,35 @@ app.get("/raw", function(req, res){
         }
         
     }); 
+}); 
+
+var entityResolver = function(entity){
+    var resolvedEntity = {}; 
+    for(key in entity){
+        resolvedEntity[key] = entity[key]._; 
+    }
+    return resolvedEntity; 
+}
+
+
+
+app.get("/baw", function(request, response){
+    var r = []; 
+    var query = new azure.TableQuery(); 
+
+    tableService.queryEntities('BingMeta', query, null, function(error, result, response){
+        if(!error){
+            re = result.entries; 
+            // eoJSON.parse(r, {Point: })
+            rb = response.body; 
+
+
+        }
+    } )
+    response.sendStatus(200); 
 })
 
 app.get("/azure", function (request, response) {
-
 
     poi.lat = request.query.loc['y'];
     poi.lon = request.query.loc['x'];
